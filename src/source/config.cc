@@ -2,10 +2,12 @@
 
 const char *Config::getAuthorName()
 {
-    return nullptr;
-}
+    return _author_name;
+};
+
 
 const char *Config::getCopyrightText()
 {
-    return nullptr;
-}
+    return _copyright;
+};
+

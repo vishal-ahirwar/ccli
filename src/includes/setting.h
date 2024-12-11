@@ -20,9 +20,12 @@ class Setting
         Ninja,
         VisualStudio
     };
-    BuildConfig _build_config=BuildConfig::Debug;
-    Compiler _compiler=Compiler::CLANG;
-    Generator _generator=Generator::Ninja;
+    BuildConfig _build_config = BuildConfig::Debug;
+    Compiler _compiler = Compiler::CLANG;
+    Generator _generator = Generator::Ninja;
 
+public:
+    Setting() = default;
+    Setting(const char *, BuildConfig config = BuildConfig::Debug, Compiler compiler = Compiler::CLANG, Generator generator = Generator::Ninja);
 };
 #endif

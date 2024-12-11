@@ -606,8 +606,8 @@ bool App::onSetup()
 		std::cout << "failed to write config file\n";
 		return false;
 	};
-
 #endif
+	return true;
 }
 
 void App::fixInstallation()
