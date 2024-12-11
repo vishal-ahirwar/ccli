@@ -4,9 +4,7 @@
 
 class App
 {
-private:
-    std::string projectName{};
-
+    std::string _project_name{};
 public:
       void createNewProject(const char *argv[],int);
       void compile(const std::string&additional_cmake_arg="");

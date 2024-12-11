@@ -50,7 +50,7 @@ void App::createNewProject(const char *argv[], int argc)
 
 	generateCppTemplateFile(argv[2]);
 	generateCmakeFile(argv[2]);
-	generateauraFile(projectName);
+	generateauraFile(_project_name);
 	generateGitIgnoreFile();
 	end = clock();
 
@@ -98,17 +98,17 @@ void App::run()
 {
 	std::string output{};
 	readauraFile(output);
-	projectName = output;
+	_project_name = output;
 
 	std::string run{};
-	// printf("%s%s: \n%s", YELLOW, projectName.c_str(),WHITE);
+	// printf("%s%s: \n%s", YELLOW, _project_name.c_str(),WHITE);
 #ifdef WIN32
 	run += ".\\build\\";
-	run += projectName;
+	run += _project_name;
 	run += ".exe";
 #else
 	run += "./build/";
-	run += projectName;
+	run += _project_name;
 #endif // WIN32
 
 	if (system(run.c_str()))
@@ -374,7 +374,7 @@ void App::generateauraFile(const std::string &path)
 		time_t now{time(NULL)};
 		const char *dateTime{ctime(&now)};
 
-		file << projectName << "\n";
+		file << _project_name << "\n";
 		file << "Project created on " << dateTime << "\n";
 		printf("%sProject Creation date : %s%s", YELLOW, dateTime, WHITE);
 		file << "Note: Please don't remove or edit this file!\n";
@@ -427,13 +427,13 @@ void App::generateCppTemplateFile(const char *argv)
 {
 	std::ofstream file;
 	// const std::string stdStr{argv[2]};
-	projectName = argv;
-	file.open("./" + projectName + "/src/main.cc", std::ios::out);
+	_project_name = argv;
+	file.open("./" + _project_name + "/src/main.cc", std::ios::out);
 
 	if (file.is_open())
 	{
 		auto pos = MAIN_CODE.find("@");
-		std::string str{std::string("Hello, ") + projectName + std::string("\\nhappy coding journey :)\\n")};
+		std::string str{std::string("Hello, ") + _project_name + std::string("\\nhappy coding journey :)\\n")};
 		MAIN_CODE.insert(pos + 1, str);
 		file << MAIN_CODE;
 		file.close();
@@ -443,7 +443,7 @@ void App::generateCppTemplateFile(const char *argv)
 void App::generateCmakeFile(const char *argv)
 {
 	std::ofstream file;
-	file.open("./" + projectName + "/CMakeLists.txt", std::ios::out);
+	file.open("./" + _project_name + "/CMakeLists.txt", std::ios::out);
 	if (file.is_open())
 	{
 		file << CMAKE_CODE << "\n";
@@ -462,7 +462,7 @@ void App::generateCmakeFile(const char *argv)
 void App::generateGitIgnoreFile()
 {
 	std::ofstream file;
-	file.open("./" + projectName + "/.gitignore", std::ios::out);
+	file.open("./" + _project_name + "/.gitignore", std::ios::out);
 	if (file.is_open())
 	{
 		file << GITIGNORE_CODE;
@@ -734,7 +734,7 @@ void App::update()
 }
 void App::debug()
 {
-	readauraFile(projectName);
+	readauraFile(_project_name);
 	compile("-DCMAKE_BUILD_TYPE=Debug");
-	system(("gdb ./build/" + projectName).c_str());
+	system(("gdb ./build/" + _project_name).c_str());
 };

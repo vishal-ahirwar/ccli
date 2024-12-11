@@ -20,6 +20,8 @@ add_executable(${PROJECT_NAME}
     src/main.cc
     src/source/app.cc
     src/source/aura.cc
+    src/source/setting.cc
+    src/source/config.cc
     downloader/downloader.cc)
 
 add_executable(utool utool/main.cc downloader/downloader.cc)
